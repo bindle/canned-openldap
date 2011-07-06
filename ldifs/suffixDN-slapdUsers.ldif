@@ -1,0 +1,117 @@
+#
+#   LDIF  Structure:
+#
+#   +--o=slapdUsers
+#      +--ou=Clients
+#      +--ou=Groups
+#      |  +--cn=Administrators
+#      |  +--cn=Authentication
+#      |  +--cn=AuthProvisioning
+#      |  +--cn=Provisioning
+#      |  +--cn=Services
+#      |  \--cn=Staff
+#      \--ou=People
+#         +--uid=root
+#         \--uid=syzdek
+#
+
+dn: o=slapdUsers
+description: top level tree for administering LDAP access
+o: slapdUsers
+objectClass: top
+objectClass: organization
+
+dn: ou=Clients,o=slapdUsers
+objectClass: top
+objectClass: organizationalUnit
+ou: Clients
+description: Bind DNs for utilities, daemons, etc
+
+dn: ou=Groups,o=slapdUsers
+objectClass: top
+objectClass: organizationalUnit
+ou: Groups
+description: Groups used to assign access levels to LDAP
+
+dn: ou=People,o=slapdUsers
+objectClass: top
+objectClass: organizationalUnit
+ou: People
+description: Bind DNs for administrators, staff, etc.
+
+dn: uid=root,ou=People,o=slapdUsers
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+uid: root
+givenName: Directory
+surname: Manager
+commonName: Directory Manager
+userPassword: {CRYPT}*
+
+dn: uid=root,ou=People,o=slapdUsers
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+uid: root
+givenName: Super
+surname: User
+commonName: Super User
+userPassword: {CRYPT}*
+
+dn: uid=syzdek,ou=People,o=slapdUsers
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+uid: syzdek
+givenName: David
+surname: Syzdek
+commonName: David M. Syzdek
+userPassword: {CRYPT}*
+
+dn: cn=Administrators,ou=Groups,o=slapdUsers
+cn: Administrators
+objectclass: top
+objectclass: groupOfNames
+member: uid=root,ou=People,o=slapdUsers
+member: uid=syzdek,ou=People,o=slapdUsers
+description: This group allows write access to everything.
+
+dn: cn=Authentication,ou=Groups,o=slapdUsers
+cn: Authentication
+objectclass: top
+objectclass: groupOfNames
+member: uid=root,ou=People,o=slapdUsers
+description: allows read access to credentials
+
+dn: cn=AuthProvisioning,ou=Groups,o=slapdUsers
+cn: AuthProvisioning
+objectclass: top
+objectclass: groupOfNames
+member: uid=root,ou=People,o=slapdUsers
+description: allows write access to credentials
+
+dn: cn=Provisioning,ou=Groups,o=slapdUsers
+cn: Provisioning
+objectclass: top
+objectclass: groupOfNames
+member: uid=root,ou=People,o=slapdUsers
+description: allows read-write access to entries
+
+dn: cn=Services,ou=Groups,o=slapdUsers
+cn: Services
+objectclass: top
+objectclass: groupOfNames
+member: uid=root,ou=People,o=slapdUsers
+description: allows read-only access to entries
+
+dn: cn=Staff,ou=Groups,o=slapdUsers
+cn: Staff
+objectclass: top
+objectclass: groupOfNames
+member: uid=root,ou=People,o=slapdUsers
+description: allows read-only/limited-write access
+

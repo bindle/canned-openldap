@@ -1,0 +1,210 @@
+#!/bin/sh
+#
+#   LDAP Configuration for ISP In A Can
+#   Copyright (C) 2011 Bindle Binaries <syzdek@bindlebinaries.com>.
+#
+#   @BINDLE_BINARIES_BSD_LICENSE_START@
+#
+#   Redistribution and use in source and binary forms, with or without
+#   modification, are permitted provided that the following conditions are
+#   met:
+#
+#      * Redistributions of source code must retain the above copyright
+#        notice, this list of conditions and the following disclaimer.
+#      * Redistributions in binary form must reproduce the above copyright
+#        notice, this list of conditions and the following disclaimer in the
+#        documentation and/or other materials provided with the distribution.
+#      * Neither the name of Bindle Binaries nor the
+#        names of its contributors may be used to endorse or promote products
+#        derived from this software without specific prior written permission.
+#
+#   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+#   IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+#   THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+#   PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL BINDLE BINARIES BE LIABLE FOR
+#   ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+#   DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+#   SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+#   CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+#   LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+#   OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+#   SUCH DAMAGE.
+#
+#   @BINDLE_BINARIES_BSD_LICENSE_END@
+#
+#   rc.slapd - init script for slapd
+#
+#   Slapd Debug Levels:
+#        -1   enable all debugging
+#         0   no debugging
+#         1   trace function calls
+#         2   debug packet handling
+#         4   heavy trace debugging
+#         8   connection management
+#        16   print out packets sent and received
+#        32   search filter processing
+#        64   configuration file processing
+#       128   access control list processing
+#       256   stats log connections/operations/results
+#       512   stats log entries sent
+#      1024   print communication with shell backends
+#      2048   print entry parsing debugging
+#
+
+
+# determine sysconf root
+cd `dirname ${0}`
+cd ..
+OPENLDAPDIR=`pwd`
+
+
+# set default values
+if test "x${SLAPD}" == "x";then
+   SLAPD=/usr/local/libexec/slapd
+fi
+if test "x${SLAPDPIDFILE}" == "x";then
+   SLAPDPIDFILE=/var/run/slapd/slapd.pid
+fi
+if test "x${SLAPDDEBUG}" == "x";then
+   SLAPDDEBUG=$((1+8+16+32+64+128))
+fi
+if test "x${SLAPDUSER}" == "x";then
+   SLAPDUSER=slapd
+fi
+if test "x${SLAPDGROUP}" == "x";then
+   SLAPDGROUP=ldap
+fi
+
+
+PIDDIR=`dirname ${SLAPDPIDFILE}`
+SLAPD_ARGS="-u ${SLAPDUSER} -g ${SLAPDGROUP}"
+if test "x${SLAPDCONFIG}" != "x";then
+   SLAPD_ARGS="-u ${SLAPDUSER} -g ${SLAPDGROUP} -f ${SLAPDCONFIG}"
+fi
+
+
+# performs initial checks and starts daemon
+start_daemon()
+{
+   if test -f ${SLAPDPIDFILE};then
+      echo "rc.slapd: daemon already running" 1>&2
+      return 1
+   fi
+   if test ! -x ${SLAPD};then
+      echo "rc.slapd: unable to find slapd binary" 1>&2
+      return 1
+    fi
+
+   if test ! -d ${PIDDIR};then
+      echo "rc.slapd: creating PID directory"
+      mkdir -p ${PIDDIR} || return 1
+   fi
+   chown ${SLAPDUSER}:${SLAPDGROUP} ${PIDDIR} || return 1
+
+   if test ! -f ${OPENLDAPDIR}/slapd-local.inc;then
+      echo "rc.slapd: creating local configuration file"
+      touch ${OPENLDAPDIR}/slapd-local.inc || return 1
+   fi
+   chown ${SLAPDUSER}:${SLAPDGROUP} ${PIDDIR} || return 1
+
+   echo "rc.slapd: starting slapd: ${SLAPD} ${SLAPD_ARGS} -h \"ldap:/// ldaps:///\" $@"
+   ${SLAPD} ${SLAPD_ARGS} -h "ldap:/// ldaps:///" $@ || return $?
+
+   return 0;
+}
+
+
+# stops daemon
+stop_daemon()
+{
+   if test ! -f ${SLAPDPIDFILE};then
+      echo "rc.slapd: daemon is not running" 1>&2
+      exit 0
+   else
+      echo "stopping slapd: kill `cat ${SLAPDPIDFILE}`"
+      kill `cat ${SLAPDPIDFILE}` || exit $?
+      sleep 4
+
+      if test -f ${SLAPDPIDFILE};then
+         echo "stopping slapd: kill -9 `cat ${SLAPDPIDFILE}`"
+         kill -9 `cat ${SLAPDPIDFILE}` || exit $?
+      fi
+   fi
+
+   killall -0 slapd > /dev/null 2>&1
+   if test "$?" == "0";then
+      echo "stopping all slapd: killall slapd"
+      killall slapd > /dev/null 2>&1 || exit $?
+      sleep 4
+   fi
+
+   killall -0 slapd > /dev/null 2>&1
+   if test "$?" == "0";then
+      echo "stopping all slapd: killall -9 slapd"
+      killall -9 slapd > /dev/null 2>&1 || exit $?
+   fi
+
+   rm -f ${SLAPDPIDFILE} || exit $?
+   return 0
+}
+
+
+# display script usage
+usage()
+{
+cat << EOF
+Usage: $0 { start | stop | restart | debug }
+
+Variables:
+   SLAPD
+   SLAPDCONFIG
+   SLAPDDEBUG
+   SLAPDGROUP
+   SLAPDUSER
+   SLAPDPIDFILE
+
+Debug Levels:
+     -1   enable all debugging
+      0   no debugging
+      1   trace function calls
+      2   debug packet handling
+      4   heavy trace debugging
+      8   connection management
+     16   print out packets sent and received
+     32   search filter processing
+     64   configuration file processing
+    128   access control list processing
+    256   stats log connections/operations/results
+    512   stats log entries sent
+   1024   print communication with shell backends
+   2048   print entry parsing debugging
+
+Example:
+   SLAPDDEBUG=\$((1+8+16+32+64+128)) SLAPDUSER=slapd ./rc.slapd start
+
+EOF
+}
+
+
+case "$1" in
+   'start')
+      start_daemon || exit $?
+   ;;
+   'stop')
+      stop_daemon
+   ;;
+   'restart')
+      stop_daemon || exit $?
+      sleep 2
+      stop_daemon || exit $?
+   ;;
+   'debug')
+      start_daemon -d ${SLAPDDEBUG} || exit $?
+   ;;
+   *)
+      usage
+   ;;
+esac
+
+
+# end of script

@@ -1,0 +1,92 @@
+#
+#   LDIF  Structure:
+#
+#   +--o=subscribers
+#      +--o=bindlebinaries.com
+#      |  +--ou=Groups
+#      |  |  \--cn=Admins
+#      |  \--ou=People
+#      |     \--uid=root
+#      \--o=isp-in-a-can.net
+#         +--ou=Groups
+#         |  \--cn=Admins
+#         \--ou=People
+#            \--uid=root
+#
+
+dn: o=subscribers
+description: top level tree for subscribers
+o: subscribers
+objectClass: top
+objectClass: organization
+
+dn: o=bindlebinaries.com,o=subscribers
+description: tree for Bindle Binaries
+o: bindlebinaries.com
+objectClass: top
+objectClass: organization
+
+dn: ou=People,o=bindlebinaries.com,o=subscribers
+objectClass: top
+objectClass: organizationalUnit
+ou: Peopledescription: Users for Bindle Binaries
+
+dn: uid=root,ou=People,o=bindlebinaries.com,o=subscribers
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+uid: root
+givenName: Super
+surname: User
+commonName: Super UseruserPassword: {CRYPT}*
+
+dn: ou=Groups,o=bindlebinaries.com,o=subscribers
+objectClass: top
+objectClass: organizationalUnit
+ou: Groups
+description: User groups for Bindle Binaries
+
+dn: cn=Admins,ou=Groups,o=bindlebinaries.com,o=subscribers
+cn: Admins
+objectclass: top
+objectclass: groupOfNames
+member: uid=root,ou=People,o=bindlebinaries.com,o=subscribers
+description: Domain admins for Bindle Binaries
+
+dn: o=isp-in-a-can.net,o=subscribers
+description: tree for ISP In A Can
+o: isp-in-a-can.net
+objectClass: top
+objectClass: organization
+
+dn: ou=People,o=isp-in-a-can.net,o=subscribers
+objectClass: top
+objectClass: organizationalUnit
+ou: People
+description: Users for ISP In A Can
+
+dn: uid=root,ou=People,o=isp-in-a-can.net,o=subscribers
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+uid: root
+givenName: Super
+surname: User
+commonName: Super User
+userPassword: {CRYPT}*
+
+dn: ou=Groups,o=isp-in-a-can.net,o=subscribers
+objectClass: top
+objectClass: organizationalUnit
+ou: Groups
+description: User groups for ISP In A Can
+
+dn: cn=Admins,ou=Groups,o=isp-in-a-can.net,o=subscribers
+cn: Admins
+objectclass: top
+objectclass: groupOfNames
+member: uid=root,ou=People,o=isp-in-a-can.net,o=subscribers
+description: Domain admins for Bindle Binaries
+
