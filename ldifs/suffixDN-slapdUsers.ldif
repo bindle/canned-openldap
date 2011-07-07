@@ -50,17 +50,6 @@ surname: Manager
 commonName: Directory Manager
 userPassword: {CRYPT}*
 
-dn: uid=root,ou=People,o=slapdUsers
-objectClass: top
-objectClass: person
-objectClass: organizationalPerson
-objectClass: inetOrgPerson
-uid: root
-givenName: Super
-surname: User
-commonName: Super User
-userPassword: {CRYPT}*
-
 dn: uid=syzdek,ou=People,o=slapdUsers
 objectClass: top
 objectClass: person
