@@ -1,0 +1,17 @@
+
+LDAP  Structure:
++--rootDSE
+   |
+   +--cn=config (meta database)
+   |
+   +--cn=Directory Manager (NULL database)
+   |
+   +--cn=monitor (meta database)
+   |
+   +--o=slapdUsers (file: suffixDN-slapdUsers.ldif)
+   |
+   +--o=subscribers (file: suffixDN-subscribers.ldif)
+   |
+   \--o=test (file: suffixDN-test.ldif)
+      \--uid=test,ou=People,o=bindlebinaries.com (NULL database)
+
