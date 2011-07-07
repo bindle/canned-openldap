@@ -194,9 +194,8 @@ case "$1" in
       stop_daemon
    ;;
    'restart')
-      stop_daemon || exit $?
-      sleep 2
-      stop_daemon || exit $?
+      stop_daemon  || exit $?
+      start_daemon || exit $?
    ;;
    'debug')
       start_daemon -d ${SLAPDDEBUG} || exit $?
