@@ -1,6 +1,27 @@
+Contents
+========
 
-ISP In A Can
-============
+   1. LDAP Configuration
+   2. About ISP In A Can
+   3. Copyright
+   4. Requirements
+   5. Tested Platforms
+   6. Maintainers
+   7. Source Code
+
+
+LDAP Configuration
+==================
+
+   This project is currently a work in progress.
+
+   This is an example of how to setup a cluster of directory servers running
+   software from the OpenLDAP Foundation.  This cluster will store the
+   provisioning information for all of the services provided by ISP In A Can.
+
+
+About ISP In A Can
+==================
 
    Knowledge is of two kinds. We know a subject ourselves, or we know where
    we can find information on it.  -Samuel Johnson
@@ -13,24 +34,6 @@ ISP In A Can
    integrate various software packages.  Although not a real world ISP, ISP
    In A Can is a functioning model of an ISP designed to run using only Free
    and Open Source software.
-
-
-LDAP Configuration
-==================
-
-   This is an example of how to setup a cluster of directory servers running
-   software from the OpenLDAP Foundation.  This cluster will store the
-   provisioning information for all of the services provided by ISP In A Can.
-
-
-Contents
-========
-
-   1. Copyright
-   2. Requirements
-   3. Tested Platforms
-   4. Maintainers
-   5. Source Code
 
 
 Copyright
