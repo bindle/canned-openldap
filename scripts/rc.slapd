@@ -121,26 +121,26 @@ stop_daemon()
       echo "rc.slapd: daemon is not running" 1>&2
       exit 0
    else
-      echo "stopping slapd: kill `cat ${SLAPDPIDFILE}`"
+      echo "rc.slapd: stopping slapd: kill `cat ${SLAPDPIDFILE}`"
       kill `cat ${SLAPDPIDFILE}` || exit $?
       sleep 4
 
       if test -f ${SLAPDPIDFILE};then
-         echo "stopping slapd: kill -9 `cat ${SLAPDPIDFILE}`"
+         echo "rc.slapd: stopping slapd: kill -9 `cat ${SLAPDPIDFILE}`"
          kill -9 `cat ${SLAPDPIDFILE}` || exit $?
       fi
    fi
 
    killall -0 slapd > /dev/null 2>&1
    if test "$?" == "0";then
-      echo "stopping all slapd: killall slapd"
+      echo "rc.slapd: stopping all slapd: killall slapd"
       killall slapd > /dev/null 2>&1 || exit $?
       sleep 4
    fi
 
    killall -0 slapd > /dev/null 2>&1
    if test "$?" == "0";then
-      echo "stopping all slapd: killall -9 slapd"
+      echo "rc.slapd: stopping all slapd: killall -9 slapd"
       killall -9 slapd > /dev/null 2>&1 || exit $?
    fi
 
