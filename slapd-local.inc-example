@@ -1,0 +1,13 @@
+#
+#  Add server specific slapd configuration directives to this file.
+#
+
+
+#
+# Load local schema
+include /usr/local/etc/openldap/schema-bindle/bindle-schema.conf
+
+#
+# Load local databases
+include /usr/local/etc/openldap/schema-bindle/bindle-db.conf
+
