@@ -84,7 +84,7 @@ fi
 
 
 # performs initial checks and starts daemon
-start_daemon()
+script_start()
 {
    if test -f ${SLAPDPIDFILE};then
       echo "rc.slapd: daemon already running" 1>&2
@@ -115,7 +115,7 @@ start_daemon()
 
 
 # stops daemon
-stop_daemon()
+script_stop()
 {
    if test ! -f ${SLAPDPIDFILE};then
       echo "rc.slapd: daemon is not running" 1>&2
@@ -150,7 +150,7 @@ stop_daemon()
 
 
 # display script usage
-usage()
+script_usage()
 {
 cat << EOF
 Usage: $0 { start | stop | restart | debug }
@@ -188,20 +188,20 @@ EOF
 
 case "$1" in
    'start')
-      start_daemon || exit $?
+      script_start || exit $?
    ;;
    'stop')
-      stop_daemon
+      script_stop
    ;;
    'restart')
-      stop_daemon  || exit $?
-      start_daemon || exit $?
+      script_stop  || exit $?
+      script_start || exit $?
    ;;
    'debug')
-      start_daemon -d ${SLAPDDEBUG} || exit $?
+      script_start -d ${SLAPDDEBUG} || exit $?
    ;;
    *)
-      usage
+      script_usage
    ;;
 esac
 
