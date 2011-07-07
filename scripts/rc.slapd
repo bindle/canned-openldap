@@ -107,6 +107,14 @@ script_start()
    fi
    chown ${SLAPDUSER}:${SLAPDGROUP} ${PIDDIR} || return 1
 
+   if test ! -f ${OPENLDAPDIR}/keys/ca-certs.pem || \
+      test ! -f ${OPENLDAPDIR}/keys/hostcert.pem || \
+      test ! -f ${OPENLDAPDIR}/keys/hostkey.pem ;then
+      echo "rc.slapd: TLS/SSL keys have not be generated." 1>&2
+      echo "rc.slapd: Please run: cd ${OPENLDAPDIR}/keys && make selfsign" 1>&2
+      return 1
+   fi
+
    echo "rc.slapd: starting slapd: ${SLAPD} ${SLAPD_ARGS} -h \"ldap:/// ldaps:///\" $@"
    ${SLAPD} ${SLAPD_ARGS} -h "ldap:/// ldaps:///" $@ || return $?
 
