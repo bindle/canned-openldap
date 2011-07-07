@@ -1,0 +1,115 @@
+
+ISP In A Can
+============
+
+   Knowledge is of two kinds. We know a subject ourselves, or we know where
+   we can find information on it.  -Samuel Johnson
+
+   Knowledge is of no value unless you put it into practice.  -Anton Chekhov
+
+   Sometimes reading the documentation for a project is not enough. Sometimes
+   it is easier to learn by examining a working example.  ISP In A Can is
+   intended to be an example to those trying to learn how to configure or
+   integrate various software packages.  Although not a real world ISP, ISP
+   In A Can is a functioning model of an ISP designed to run using only Free
+   and Open Source software.
+
+
+LDAP Configuration
+==================
+
+   This is an example of how to setup a cluster of directory servers running
+   software from the OpenLDAP Foundation.  This cluster will store the
+   provisioning information for all of the services provided by ISP In A Can.
+
+
+Contents
+========
+
+   1. Copyright
+   2. Requirements
+   3. Tested Platforms
+   4. Maintainers
+   5. Source Code
+
+
+Copyright
+=========
+
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions are
+   met:
+
+      * Redistributions of source code must retain the above copyright
+        notice, this list of conditions and the following disclaimer.
+      * Redistributions in binary form must reproduce the above copyright
+        notice, this list of conditions and the following disclaimer in the
+        documentation and/or other materials provided with the distribution.
+      * Neither the name of Bindle Binaries nor the
+        names of its contributors may be used to endorse or promote products
+        derived from this software without specific prior written permission.
+
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+   IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+   THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+   PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL BINDLE BINARIES BE LIABLE FOR
+   ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+   DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+   SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+   CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+   LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+   OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+   SUCH DAMAGE.
+
+
+Requirements
+============
+
+   OpenLDAP 2.4.25
+   GNU Make
+   Git 1.7
+
+
+Tested Platforms
+================
+
+   OS X 10.6.6
+   Slackware 13.1
+   Slackware 13.37
+
+
+Maintainers
+===========
+
+   David M. Syzdek
+   Bindle Binaries
+   syzdek@bindlebinaries.com
+
+
+Source Code
+===========
+
+   The source code for this project is maintained using git
+   (http://git-scm.com).  The following contains information to checkout the
+   source code from the git repository.
+
+   Browse Source:
+      https://github.com/bindle/canned-openldap.git
+      http://scm.isp-in-a-can.net/scm/net.isp-in-a-can/openldap.git
+
+   Git URLs:
+      git://github.com/bindle/canned-openldap.git
+      git://git.scm.isp-in-a-can.net/pub/scm/net.isp-in-a-can/openldap.git
+      http://http.scm.isp-in-a-can.net/pub/scm/net.isp-in-a-can/openldap.git
+      ssh://ssh.scm.isp-in-a-can.net/pub/scm/net.isp-in-a-can/openldap.git
+
+   Downloading Source:
+
+      $ git clone git://github.com/bindle/canned-openldap.git openldap
+
+   Git Branches:
+      master - Current release of packages.
+      next   - changes staged for next release
+      pu     - proposed updates for next release
+      xx/yy+ - branch for testing new changes before merging to 'pu' branch
+
