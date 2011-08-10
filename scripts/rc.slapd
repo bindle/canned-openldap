@@ -105,7 +105,6 @@ script_start()
       echo "rc.slapd: creating local configuration file"
       touch ${OPENLDAPDIR}/slapd-local.inc || return 1
    fi
-   chown ${SLAPDUSER}:${SLAPDGROUP} ${PIDDIR} || return 1
 
    if test ! -f ${OPENLDAPDIR}/keys/ca-certs.pem || \
       test ! -f ${OPENLDAPDIR}/keys/hostcert.pem || \
