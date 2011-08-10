@@ -114,8 +114,8 @@ script_start()
       return 1
    fi
 
-   echo "rc.slapd: starting slapd: ${SLAPD} ${SLAPD_ARGS} -h \"ldap:/// ldaps:///\" $@"
-   ${SLAPD} ${SLAPD_ARGS} -h "ldap:/// ldaps:///" $@ || return $?
+   echo "rc.slapd: starting slapd: ${SLAPD} ${SLAPD_ARGS} -h \"ldap://${SLAPDINTERFACE}/ ldaps://${SLAPDSSLINTERFACE}/\" $@"
+   ${SLAPD} ${SLAPD_ARGS} -h "ldap://${SLAPDINTERFACE}/ ldaps://${SLAPDSSLINTERFACE}/" $@ || return $?
 
    return 0;
 }
