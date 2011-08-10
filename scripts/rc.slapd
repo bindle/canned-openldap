@@ -163,12 +163,14 @@ cat << EOF
 Usage: $0 { start | stop | restart | debug }
 
 Variables:
-   SLAPD
-   SLAPDCONFIG
-   SLAPDDEBUG
-   SLAPDGROUP
-   SLAPDUSER
-   SLAPDPIDFILE
+   SLAPD              = ${SLAPD}
+   SLAPDCONFIG        = ${SLAPDCONFIG}
+   SLAPDDEBUG         = ${SLAPDDEBUG}
+   SLAPDUSER          = ${SLAPDUSER}
+   SLAPDGROUP         = ${SLAPDGROUP}
+   SLAPDINTERFACE     = ${SLAPDINTERFACE}
+   SLAPDSSLINTERFACE  = ${SLAPDSSLINTERFACE}
+   SLAPDPIDFILE       = ${SLAPDPIDFILE}
 
 Debug Levels:
      -1   enable all debugging
