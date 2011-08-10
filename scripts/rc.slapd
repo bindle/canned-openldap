@@ -69,10 +69,10 @@ if test "x${SLAPDDEBUG}" == "x";then
    SLAPDDEBUG=$((1+8+16+32+64+128))
 fi
 if test "x${SLAPDUSER}" == "x";then
-   SLAPDUSER=slapd
+   SLAPDUSER=`ls -do /usr/local/var/openldap-data/slapdUsersRoot  |awk '{print$3}'2> /dev/null`
 fi
 if test "x${SLAPDGROUP}" == "x";then
-   SLAPDGROUP=ldap
+   SLAPDGROUP=`ls -dg /usr/local/var/openldap-data/slapdUsersRoot  |awk '{print$3}'2> /dev/null`
 fi
 
 
