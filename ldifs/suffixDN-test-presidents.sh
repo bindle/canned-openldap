@@ -62,12 +62,6 @@ echo "#"
 
 cat << EOF
 
-dn: o=test
-description: top level node in the Organization tree
-o: test
-objectClass: top
-objectClass: organization
-
 dn: o=presidents,o=test
 description: Directory of Presidents
 o: presidency

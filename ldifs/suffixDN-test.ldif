@@ -1,0 +1,6 @@
+dn: o=test
+description: top level node in the Organization tree
+o: test
+objectClass: top
+objectClass: organization
+
