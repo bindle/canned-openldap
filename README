@@ -7,7 +7,8 @@ Contents
    4. Requirements
    5. Tested Platforms
    6. Maintainers
-   7. Source Code
+   7. Building OpenLDAP Stack
+   8. Source Code
 
 
 LDAP Configuration
@@ -88,6 +89,22 @@ Maintainers
    Bindle Binaries
    syzdek@bindlebinaries.com
 
+
+Building OpenLDAP Stack
+=======================
+
+   BerkeleyDB
+
+   OpenLDAP
+   $ ../openldap-2.4.25/configure --enable-debug --enable-ipv6 \
+        --enable-local --enable-modules --enable-cleartext --enable-crypt \
+        --enable-spasswd --enable-bdb --enable-dnssrv --enable-hdb \
+        --enable-ldap --enable-monitor --enable-null --enable-sock \
+        --enable-meta --enable-sql --enable-passwd --enable-overlays \
+        --enable-unique --with-threads --with-tls \
+        CFLAGS=-I/usr/local/BerkeleyDB.4.8/include/ \
+        LDFLAGS=-L/usr/local/BerkeleyDB.4.8/lib/ \
+        CPPFLAGS=-I/usr/local/BerkeleyDB.4.8/include/
 
 Source Code
 ===========
