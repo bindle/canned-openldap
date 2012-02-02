@@ -104,6 +104,7 @@ commonName: ${CN}
 st: ${STATE}
 description: ${PARTY}, President ${START} to ${STOP}
 userPassword: {CRYPT}*
+jpegPhoto:< file:///usr/local/etc/openldap/ldifs/potus/${TERM}.jpg
 
 EOF
    COUNT=$((${COUNT}+1))
